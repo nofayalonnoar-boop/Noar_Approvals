@@ -90,15 +90,6 @@
       </div>
       
       <!-- Nav Button Links -->
-      <div class="flex items-center gap-2">
-        <a 
-          href="index.html" 
-          class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-600 hover:text-slate-900 font-bold rounded-xl hover:bg-slate-100 transition cursor-pointer"
-        >
-          <i class="fa-solid fa-calculator text-slate-400"></i>
-          <span>מרכז התקציב</span>
-        </a>
-      </div>
     </div>
   </header>
 
@@ -1730,8 +1721,8 @@ ALTER TABLE public.parent_submissions ENABLE ROW LEVEL SECURITY;
 
       // Scaled coordinates mapping correctly regardless of styling width
       return {
-        x: (clientX - rect.left) * (canvas.width / rect.width),
-        y: (clientY - rect.top) * (canvas.height / rect.height)
+        x: clientX - rect.left,
+        y: clientY - rect.top
       };
     }
 
