@@ -705,6 +705,10 @@
       parentFormTemplateObj = decodeTemplateMetadata(templ);
       const activeTempl = parentFormTemplateObj;
 
+      if (activeTempl && activeTempl.activity_name) {
+        document.title = `טופס אישור הורים והצהרת בריאות | ${activeTempl.activity_name}`;
+      }
+
       // Update fields
       document.getElementById('parent-preview-title').innerText = activeTempl.title;
       document.getElementById('parent-preview-activity-badge').innerText = `עבור הפעילות: ${activeTempl.activity_name}`;
