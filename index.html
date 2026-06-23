@@ -90,7 +90,8 @@
       </div>
       
       <!-- Nav Button Links -->
-
+      <div class="flex items-center gap-2">
+      </div>
     </div>
   </header>
 
@@ -1033,6 +1034,17 @@
     }
 
     async function pushUpdateToDB(table, action, record, recordId = null) {
+      if (record && table === 'parent_approvals') {
+        const cleanRecord = {};
+        const allowedKeys = ['title', 'activity_name', 'show_water_clause', 'commitment_text', 'created_at', 'id'];
+        for (const key of allowedKeys) {
+          if (key in record) {
+            cleanRecord[key] = record[key];
+          }
+        }
+        record = cleanRecord;
+      }
+
       if (isDbConnected && supabaseClient) {
         try {
           if (action === 'insert') {
