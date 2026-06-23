@@ -454,7 +454,7 @@
         <!-- Section 1.5 of PDF details of parents + Signature -->
         <div class="space-y-3 border-t border-slate-150 pt-5">
           <h3 class="text-xs font-bold text-slate-900 border-r-4 border-brand-600 pr-2 pb-0.5">פרטי ההורה וחתימה</h3>
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs text-slate-800 items-stretch">
+          <div class="grid grid-cols-4 gap-4 text-xs text-slate-800 items-stretch">
             <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-center">
               <span class="text-[10px] text-slate-400 font-bold block">שם מלא של ההורה:</span>
               <p class="font-bold text-slate-900 text-sm" id="pdf-parent-name"></p>
@@ -467,13 +467,9 @@
               <span class="text-[10px] text-slate-400 font-bold block">תעודת זהות הורה:</span>
               <p class="font-bold font-mono tracking-widest text-slate-900" id="pdf-parent-id"></p>
             </div>
-            <div class="bg-slate-50/50 p-1.5 px-3 rounded-xl border border-slate-100 flex items-center justify-between col-span-1 gap-2">
-              <div class="space-y-0.5">
-                <span class="text-[9px] text-slate-400 font-bold block">תאריך חתימה:</span>
-                <p id="pdf-doc-signed-date" class="font-bold text-slate-900 text-[10px] leading-tight"></p>
-                <span class="text-[8px] text-emerald-600 font-bold block text-right">מאושר דיגיטלית</span>
-              </div>
-              <div class="w-20 h-10 border border-slate-200 bg-white rounded-lg overflow-hidden flex items-center justify-center p-0.5 relative shrink-0">
+            <div class="bg-slate-50/50 p-2 rounded-xl border border-slate-100 flex flex-col items-center justify-center col-span-1 text-center font-sans">
+              <span id="pdf-sig-label" class="text-[9px] text-slate-500 font-bold mb-1 block">חתימה:</span>
+              <div class="w-24 h-10 border border-slate-200 bg-white rounded-lg overflow-hidden flex items-center justify-center p-0.5 relative shrink-0">
                 <img id="pdf-signature-img" src="" class="max-w-full max-h-full object-contain" />
               </div>
             </div>
@@ -930,8 +926,9 @@
       document.getElementById('pdf-commitment-terms-block').innerText = parentFormTemplateObj.commitment_text;
 
       // Signing Date and Signature preview block
-      const dateOption = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-      document.getElementById('pdf-doc-signed-date').innerText = new Date(subObj.created_at).toLocaleDateString('he-IL', dateOption);
+      const d = new Date(subObj.created_at);
+      const rawDate = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+      document.getElementById('pdf-sig-label').innerText = `חתימה ${rawDate}:`;
       document.getElementById('pdf-signature-img').src = subObj.signature_svg;
 
       // Toggle views
