@@ -483,59 +483,42 @@
           </div>
         </div>
 
-        <!-- Disclaimer & Submission button -->
-        <div class="pt-4 border-t border-slate-100 space-y-4">
-
-          <button 
-            type="submit" 
-            id="parent-submit-btn"
-            disabled
-            class="w-full bg-slate-200 text-slate-400 font-extrabold py-3 rounded-2xl text-xs transition-all flex items-center justify-center gap-2 cursor-not-allowed opacity-60"
-          >
-            <i class="fa-solid fa-file-signature"></i>
-            <span>שמור והגש אישור חתום לפעילות</span>
-          </button>
-        </div>
-
       </form>
-
     </div>
 
-
-
     <!-- ==========================================
-        VIEW 3: COMPLETED FORM DISPLAY (Print Friendly / PDF ready)
-       ========================================== -->
+         VIEW 3: COMPLETED FORM DISPLAY (Print Friendly / PDF ready)
+        ========================================== -->
     <div id="view-completed-form" class="hidden max-w-3xl mx-auto space-y-6">
       
-      <!-- High-Polished Success Screen Hero Card (no-print) -->
-      <div class="bg-white border border-slate-100 rounded-3xl p-8 md:p-12 text-center space-y-6 shadow-sm no-print">
-        <div class="mx-auto w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-500 ring-8 ring-emerald-50/50">
-          <i class="fa-solid fa-check text-2xl"></i>
+      <!-- High-Polished Document Detail Header Card (no-print) -->
+      <div class="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 text-center space-y-4 shadow-sm no-print">
+        <div class="mx-auto w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-650 ring-6 ring-indigo-50/50">
+          <i class="fa-solid fa-file-invoice text-lg"></i>
         </div>
         
-        <div class="space-y-2">
-          <h2 class="text-xl md:text-2xl font-black text-slate-950 tracking-tight">האישור נשמר בהצלחה במערכת!</h2>
-          <p class="text-xs md:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
-            פרטי אישור ההורים והצהרת הבריאות נרשמו בהצלחה במאגר של מחלקת הנוער.
+        <div class="space-y-1">
+          <h2 class="text-base md:text-lg font-black text-slate-900 tracking-tight">צפייה באישור הורים חתום</h2>
+          <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed font-semibold">
+            מסמך זה מאושר דיגיטלית ונשמר במערכת מחלקת נוער.
           </p>
         </div>
 
-        <div class="pt-6 border-t border-slate-100 max-w-md mx-auto flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div class="pt-4 border-t border-slate-100 max-w-md mx-auto flex flex-col sm:flex-row items-center justify-center gap-3">
           <button 
             onclick="window.print()" 
-            class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs px-6 py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-xs hover:scale-102 cursor-pointer"
+            class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-xs hover:scale-102 cursor-pointer"
           >
             <i class="fa-solid fa-file-pdf text-sm"></i>
-            <span>שמור כ-PDF / הדפס</span>
+            <span>שמור כ-PDF / הדפס אישור</span>
           </button>
           
           <button 
-            onclick="reloadParentEmptyFormAndSignAnother()" 
-            class="w-full sm:w-auto bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-extrabold text-xs px-6 py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-3xs cursor-pointer hover:border-slate-300"
+            onclick="goBackToManagerSubmissions()" 
+            class="w-full sm:w-auto bg-slate-105 hover:bg-slate-200 text-slate-800 font-extrabold text-xs px-5 py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-3xs cursor-pointer border border-slate-200"
           >
-            <i class="fa-solid fa-plus text-sm"></i>
-            <span>הגש אישור נוסף</span>
+            <i class="fa-solid fa-arrow-right text-sm"></i>
+            <span>חזור לרשימת האישורים</span>
           </button>
         </div>
       </div>
@@ -571,21 +554,31 @@
           </div>
         </div>
 
-        <!-- Section 1.5 of PDF details of parents -->
+        <!-- Section 1.5 of PDF details of parents + Signature -->
         <div class="space-y-3 border-t border-slate-150 pt-5">
-          <h3 class="text-xs font-bold text-slate-900 border-r-4 border-brand-600 pr-2 pb-0.5">פרטי ההורה</h3>
-          <div class="grid grid-cols-3 gap-4 text-xs text-slate-800">
-            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+          <h3 class="text-xs font-bold text-slate-900 border-r-4 border-brand-600 pr-2 pb-0.5">פרטי ההורה וחתימה</h3>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs text-slate-800 items-stretch">
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-center">
               <span class="text-[10px] text-slate-400 font-bold block">שם מלא של ההורה:</span>
               <p class="font-bold text-slate-900 text-sm" id="pdf-parent-name"></p>
             </div>
-            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-center">
               <span class="text-[10px] text-slate-400 font-bold block">טלפון הורה:</span>
               <p class="font-bold font-mono tracking-wider text-slate-900" id="pdf-parent-phone"></p>
             </div>
-            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-center">
               <span class="text-[10px] text-slate-400 font-bold block">תעודת זהות הורה:</span>
               <p class="font-bold font-mono tracking-widest text-slate-900" id="pdf-parent-id"></p>
+            </div>
+            <div class="bg-slate-50/50 p-1.5 px-3 rounded-xl border border-slate-100 flex items-center justify-between col-span-1 gap-2">
+              <div class="space-y-0.5">
+                <span class="text-[9px] text-slate-400 font-bold block">תאריך חתימה:</span>
+                <p id="pdf-doc-signed-date" class="font-bold text-slate-900 text-[10px] leading-tight"></p>
+                <span class="text-[8px] text-emerald-600 font-bold block text-right">מאושר דיגיטלית</span>
+              </div>
+              <div class="w-20 h-10 border border-slate-200 bg-white rounded-lg overflow-hidden flex items-center justify-center p-0.5 relative shrink-0">
+                <img id="pdf-signature-img" src="" class="max-w-full max-h-full object-contain" />
+              </div>
             </div>
           </div>
         </div>
@@ -621,30 +614,10 @@
           </div>
         </div>
 
-        <!-- Footer signatures block -->
-        <div class="border-t-2 border-slate-200 pt-6 flex justify-between items-center text-xs text-slate-805">
-          <div class="space-y-1">
-            <span class="text-slate-400 font-bold block text-[10px]">תאריך חתימה:</span>
-            <p id="pdf-doc-signed-date" class="font-bold text-slate-950"></p>
-            <span class="text-slate-400 text-[10px] block mt-4">חתימה מאושרת דיגיטלית</span>
-          </div>
-          
-          <div class="text-left shrink-0">
-            <span class="text-slate-400 font-bold block text-[10px] text-center mb-1">חתימת ההורה החוקית:</span>
-            <div class="w-48 h-20 border border-slate-200 bg-slate-50/50 rounded-xl overflow-hidden flex items-center justify-center p-2 relative">
-              <img id="pdf-signature-img" src="" class="max-w-full max-h-full object-contain" />
-              <div class="absolute bottom-1 right-1 text-[8px] text-emerald-600 font-mono tracking-widest uppercase select-none opacity-40">VERIFIED</div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
     </div>
-
-    <!-- Container for bulk printing (only visible when print triggering is active) -->
-    <div id="bulk-print-container" class="hidden"></div>
-
+    
   </main>
 
 
@@ -1914,8 +1887,15 @@ ALTER TABLE public.parent_submissions ENABLE ROW LEVEL SECURITY;
           icon: 'success',
           title: 'הקישור הועתק כעת!',
           html: `<div class="text-xs font-bold leading-normal mb-1">קישור מותאם ישירות לפלאפון של ההורים עבור הפעילות:</div><input type="text" readonly class="w-full border p-2 text-[10px] text-center bg-slate-50 font-mono focus:outline-none rounded-lg" value="${shareLink}">`,
-          confirmButtonText: 'מעולה',
-          confirmButtonColor: '#7c3aed'
+          showCancelButton: true,
+          confirmButtonText: 'פתיחת הקישור',
+          cancelButtonText: 'סגור',
+          confirmButtonColor: '#7c3aed',
+          cancelButtonColor: '#64748b'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.open(shareLink, '_blank');
+          }
         });
       }).catch(err => {
         console.error(err);
@@ -2355,27 +2335,47 @@ ALTER TABLE public.parent_submissions ENABLE ROW LEVEL SECURITY;
                 </div>
 
                 <!-- Section 1 of PDF details of children -->
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs text-slate-800">
-                  <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100">
-                    <span class="text-[9px] text-slate-400 font-bold block">שם מלא של החניך/ה:</span>
-                    <p class="font-bold text-slate-900 text-xs">${s.child_name}</p>
+                <div class="space-y-3">
+                  <h3 class="text-xs font-bold text-slate-900 border-r-4 border-brand-600 pr-2 pb-0.5 font-sans">פרטי החניך</h3>
+                  <div class="grid grid-cols-3 gap-4 text-xs text-slate-800">
+                    <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100">
+                      <span class="text-[9px] text-slate-400 font-bold block">שם מלא של החניך/ה:</span>
+                      <p class="font-bold text-slate-900 text-xs">${s.child_name}</p>
+                    </div>
+                    <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100">
+                      <span class="text-[9px] text-slate-400 font-bold block">תעודת זהות חניך:</span>
+                      <p class="font-bold font-mono tracking-wider text-slate-900 text-xs">${s.child_national_id}</p>
+                    </div>
+                    ${gradeHtml}
                   </div>
-                  <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100">
-                    <span class="text-[9px] text-slate-400 font-bold block">תעודת זהות חניך:</span>
-                    <p class="font-bold font-mono tracking-wider text-slate-900 text-xs">${s.child_national_id}</p>
-                  </div>
-                  ${gradeHtml}
-                  <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100">
-                    <span class="text-[9px] text-slate-400 font-bold block">שם מלא של ההורה:</span>
-                    <p class="font-bold text-slate-900 text-xs">${s.parent_name}</p>
-                  </div>
-                  <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100">
-                    <span class="text-[9px] text-slate-400 font-bold block">טלפון הורה:</span>
-                    <p class="font-semibold font-mono tracking-wide text-slate-900 text-xs">${s.parent_phone}</p>
-                  </div>
-                  <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100">
-                    <span class="text-[9px] text-slate-400 font-bold block">תעודת זהות הורה:</span>
-                    <p class="font-bold font-mono tracking-wider text-slate-900 text-xs">${s.parent_national_id}</p>
+                </div>
+
+                <!-- Section 1.5 of PDF details of parents + Signature -->
+                <div class="space-y-3 border-t border-slate-150 pt-4">
+                  <h3 class="text-xs font-bold text-slate-900 border-r-4 border-brand-600 pr-2 pb-0.5 font-sans">פרטי ההורה וחתימה</h3>
+                  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs text-slate-800 items-stretch font-sans">
+                    <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100 flex flex-col justify-center">
+                      <span class="text-[9px] text-slate-400 font-bold block">שם מלא של ההורה:</span>
+                      <p class="font-bold text-slate-900 text-xs">${s.parent_name}</p>
+                    </div>
+                    <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100 flex flex-col justify-center">
+                      <span class="text-[9px] text-slate-400 font-bold block">טלפון הורה:</span>
+                      <p class="font-semibold font-mono tracking-wide text-slate-900 text-xs">${s.parent_phone}</p>
+                    </div>
+                    <div class="space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100 flex flex-col justify-center">
+                      <span class="text-[9px] text-slate-400 font-bold block">תעודת זהות הורה:</span>
+                      <p class="font-bold font-mono tracking-wider text-slate-900 text-xs">${s.parent_national_id}</p>
+                    </div>
+                    <div class="bg-slate-50/50 p-1 px-2.5 rounded-xl border border-slate-100 flex items-center justify-between col-span-1 gap-2">
+                      <div class="space-y-0.5">
+                        <span class="text-[8px] text-slate-400 font-bold block">תאריך חתימה:</span>
+                        <p class="font-bold text-slate-900 text-[9px] leading-tight">${formattedDate}</p>
+                        <span class="text-[8px] text-emerald-600 font-bold block text-right">מאושר דיגיטלית</span>
+                      </div>
+                      <div class="w-16 h-8 border border-slate-200 bg-white rounded-lg overflow-hidden flex items-center justify-center p-0.5 relative shrink-0">
+                        <img src="${s.signature_svg}" class="max-w-full max-h-full object-contain" />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -2402,23 +2402,6 @@ ALTER TABLE public.parent_submissions ENABLE ROW LEVEL SECURITY;
                     <span>התחייבות ומשמעת:</span>
                   </h4>
                   <div class="text-slate-600 whitespace-pre-line leading-relaxed text-[10px] bg-slate-50/50 p-3 rounded-xl border border-slate-100">${actT.commitment_text}</div>
-                </div>
-              </div>
-
-              <!-- Footer signatures block -->
-              <div class="border-t-2 border-slate-200 pt-4 flex justify-between items-center text-xs text-slate-805 mt-4">
-                <div class="space-y-1">
-                  <span class="text-slate-400 font-bold block text-[9px]">תאריך חתימה:</span>
-                  <p class="font-bold text-slate-950">${formattedDate}</p>
-                  <span class="text-slate-400 text-[9px] block mt-2">חתימה מאושרת דיגיטלית</span>
-                </div>
-                
-                <div class="text-left shrink-0">
-                  <span class="text-slate-400 font-bold block text-[9px] text-center mb-1">חתימת ההורה החוקית:</span>
-                  <div class="w-40 h-16 border border-slate-200 bg-slate-50/50 rounded-xl overflow-hidden flex items-center justify-center p-1.5 relative">
-                    <img src="${s.signature_svg}" class="max-w-full max-h-full object-contain" />
-                    <div class="absolute bottom-1 right-1 text-[7px] text-emerald-600 font-mono tracking-widest uppercase select-none opacity-40">VERIFIED</div>
-                  </div>
                 </div>
               </div>
 
@@ -2469,5 +2452,6 @@ ALTER TABLE public.parent_submissions ENABLE ROW LEVEL SECURITY;
     }
 
   </script>
+  <div id="bulk-print-container" class="hidden"></div>
 </body>
 </html>
