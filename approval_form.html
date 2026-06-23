@@ -451,21 +451,31 @@
           </div>
         </div>
 
-        <!-- Section 1.5 of PDF details of parents -->
+        <!-- Section 1.5 of PDF details of parents + Signature -->
         <div class="space-y-3 border-t border-slate-150 pt-5">
-          <h3 class="text-xs font-bold text-slate-900 border-r-4 border-brand-600 pr-2 pb-0.5">פרטי ההורה</h3>
-          <div class="grid grid-cols-3 gap-4 text-xs text-slate-800">
-            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+          <h3 class="text-xs font-bold text-slate-900 border-r-4 border-brand-600 pr-2 pb-0.5">פרטי ההורה וחתימה</h3>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs text-slate-800 items-stretch">
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-center">
               <span class="text-[10px] text-slate-400 font-bold block">שם מלא של ההורה:</span>
               <p class="font-bold text-slate-900 text-sm" id="pdf-parent-name"></p>
             </div>
-            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-center">
               <span class="text-[10px] text-slate-400 font-bold block">טלפון הורה:</span>
               <p class="font-bold font-mono tracking-wider text-slate-900" id="pdf-parent-phone"></p>
             </div>
-            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-center">
               <span class="text-[10px] text-slate-400 font-bold block">תעודת זהות הורה:</span>
               <p class="font-bold font-mono tracking-widest text-slate-900" id="pdf-parent-id"></p>
+            </div>
+            <div class="bg-slate-50/50 p-1.5 px-3 rounded-xl border border-slate-100 flex items-center justify-between col-span-1 gap-2">
+              <div class="space-y-0.5">
+                <span class="text-[9px] text-slate-400 font-bold block">תאריך חתימה:</span>
+                <p id="pdf-doc-signed-date" class="font-bold text-slate-900 text-[10px] leading-tight"></p>
+                <span class="text-[8px] text-emerald-600 font-bold block text-right">מאושר דיגיטלית</span>
+              </div>
+              <div class="w-20 h-10 border border-slate-200 bg-white rounded-lg overflow-hidden flex items-center justify-center p-0.5 relative shrink-0">
+                <img id="pdf-signature-img" src="" class="max-w-full max-h-full object-contain" />
+              </div>
             </div>
           </div>
         </div>
@@ -498,23 +508,6 @@
         <div class="space-y-2 border-t border-slate-150 pt-5 text-xs">
           <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5"><i class="fa-solid fa-scale-balanced text-slate-600"></i><span>התחייבות ומשמעת:</span></h4>
           <div class="text-slate-600 whitespace-pre-line leading-relaxed text-[11px] bg-slate-50/50 p-4 rounded-xl border border-slate-100" id="pdf-commitment-terms-block">
-          </div>
-        </div>
-
-        <!-- Footer signatures block -->
-        <div class="border-t-2 border-slate-200 pt-6 flex justify-between items-center text-xs text-slate-805">
-          <div class="space-y-1">
-            <span class="text-slate-400 font-bold block text-[10px]">תאריך חתימה:</span>
-            <p id="pdf-doc-signed-date" class="font-bold text-slate-950"></p>
-            <span class="text-slate-400 text-[10px] block mt-4">חתימה מאושרת דיגיטלית</span>
-          </div>
-          
-          <div class="text-left shrink-0">
-            <span class="text-slate-400 font-bold block text-[10px] text-center mb-1">חתימת ההורה החוקית:</span>
-            <div class="w-48 h-20 border border-slate-200 bg-slate-50/50 rounded-xl overflow-hidden flex items-center justify-center p-2 relative">
-              <img id="pdf-signature-img" src="" class="max-w-full max-h-full object-contain" />
-              <div class="absolute bottom-1 right-1 text-[8px] text-emerald-600 font-mono tracking-widest uppercase select-none opacity-40">VERIFIED</div>
-            </div>
           </div>
         </div>
 
