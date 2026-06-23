@@ -90,6 +90,7 @@
       </div>
       
       <!-- Nav Button Links -->
+
     </div>
   </header>
 
@@ -1226,11 +1227,15 @@
           waterText = `<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-50 text-amber-800 border border-amber-100 mx-auto" title="אינו/ה יודע/ת לשחות (כניסה עד גובה מותניים בלבד תחת השגחה)"><i class="fa-solid fa-life-ring text-xs"></i></span>`;
         }
 
+        let displayGrade = s.child_grade + "'";
+        if (s.child_grade === 'יא') displayGrade = 'י"א';
+        if (s.child_grade === 'יב' || s.child_grade === 'יb') displayGrade = 'י"ב';
+
         html += `
           <tr class="hover:bg-slate-50/40 transition border-b border-slate-100">
             <td class="p-3 font-bold text-slate-900">${s.child_name}</td>
             <td class="p-3 font-mono text-slate-500">${s.child_national_id}</td>
-            <td class="p-3 font-semibold text-slate-600">כיתה ${s.child_grade}'</td>
+            <td class="p-3 font-semibold text-slate-600">${displayGrade}</td>
             <td class="p-3 text-slate-700 font-medium">${s.parent_name}</td>
             <td class="p-3 font-mono text-slate-650">${s.parent_phone}</td>
             <td class="p-3">
@@ -2306,7 +2311,7 @@ ALTER TABLE public.parent_submissions ENABLE ROW LEVEL SECURITY;
           const pageBreakClass = isLast ? '' : 'page-break';
 
           html += `
-            <div class="${pageBreakClass} bg-white p-6 md:p-10 space-y-6 relative overflow-hidden print-card" style="box-sizing: border-box; min-height: 297mm; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="${pageBreakClass} bg-white p-6 md:p-10 space-y-6 relative overflow-hidden print-card" style="box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
               
               <div class="space-y-6 flex-1">
                 <!-- Header banner structure -->
