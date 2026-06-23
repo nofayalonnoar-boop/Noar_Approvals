@@ -550,40 +550,43 @@
             <div id="pdf-doc-activity-badge" class="font-bold text-brand-700 text-xs"></div>
             <p class="text-[10px] text-slate-450 font-medium">מספר סימוכין חתימה: <span id="pdf-doc-id-ref" class="font-mono bg-slate-100 px-1 py-0.5 rounded"></span></p>
           </div>
-          <!-- Logo symbol -->
-          <div class="text-left">
-            <div class="inline-flex flex-col items-center">
-              <div class="w-12 h-12 rounded-xl border-2 border-slate-800 flex items-center justify-center text-slate-800 font-black text-base">נוער</div>
-              <span class="text-[9px] text-slate-400 font-bold mt-1">מזכירות מחלקת נוער</span>
+        </div>
+
+        <!-- Section 1 of PDF details of children -->
+        <div class="space-y-3">
+          <h3 class="text-xs font-bold text-slate-900 border-r-4 border-brand-600 pr-2 pb-0.5">פרטי החניך</h3>
+          <div class="grid grid-cols-3 gap-4 text-xs text-slate-800">
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+              <span class="text-[10px] text-slate-400 font-bold block">שם מלא של החניך/ה:</span>
+              <p class="font-bold text-slate-900 text-sm" id="pdf-child-name"></p>
+            </div>
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+              <span class="text-[10px] text-slate-400 font-bold block">תעודת זהות חניך:</span>
+              <p class="font-bold font-mono tracking-widest text-slate-900" id="pdf-child-id"></p>
+            </div>
+            <div id="pdf-child-grade-container" class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+              <span class="text-[10px] text-slate-400 font-bold block">כיתה:</span>
+              <p class="font-extrabold text-slate-900" id="pdf-child-grade"></p>
             </div>
           </div>
         </div>
 
-        <!-- Section 1 of PDF details of children -->
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 text-xs text-slate-800">
-          <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
-            <span class="text-[10px] text-slate-400 font-bold block">שם מלא של החניך/ה:</span>
-            <p class="font-bold text-slate-900 text-sm" id="pdf-child-name"></p>
-          </div>
-          <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
-            <span class="text-[10px] text-slate-400 font-bold block">תעודת זהות חניך:</span>
-            <p class="font-bold font-mono tracking-widest text-slate-900" id="pdf-child-id"></p>
-          </div>
-          <div id="pdf-child-grade-container" class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
-            <span class="text-[10px] text-slate-400 font-bold block">כיתה:</span>
-            <p class="font-extrabold text-slate-900" id="pdf-child-grade"></p>
-          </div>
-          <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
-            <span class="text-[10px] text-slate-400 font-bold block">שם מלא של ההורה:</span>
-            <p class="font-bold text-slate-900 text-sm" id="pdf-parent-name"></p>
-          </div>
-          <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
-            <span class="text-[10px] text-slate-400 font-bold block">טלפון הורה:</span>
-            <p class="font-bold font-mono tracking-wider text-slate-900" id="pdf-parent-phone"></p>
-          </div>
-          <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
-            <span class="text-[10px] text-slate-400 font-bold block">תעודת זהות הורה:</span>
-            <p class="font-bold font-mono tracking-widest text-slate-900" id="pdf-parent-id"></p>
+        <!-- Section 1.5 of PDF details of parents -->
+        <div class="space-y-3 border-t border-slate-150 pt-5">
+          <h3 class="text-xs font-bold text-slate-900 border-r-4 border-brand-600 pr-2 pb-0.5">פרטי ההורה</h3>
+          <div class="grid grid-cols-3 gap-4 text-xs text-slate-800">
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+              <span class="text-[10px] text-slate-400 font-bold block">שם מלא של ההורה:</span>
+              <p class="font-bold text-slate-900 text-sm" id="pdf-parent-name"></p>
+            </div>
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+              <span class="text-[10px] text-slate-400 font-bold block">טלפון הורה:</span>
+              <p class="font-bold font-mono tracking-wider text-slate-900" id="pdf-parent-phone"></p>
+            </div>
+            <div class="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100">
+              <span class="text-[10px] text-slate-400 font-bold block">תעודת זהות הורה:</span>
+              <p class="font-bold font-mono tracking-widest text-slate-900" id="pdf-parent-id"></p>
+            </div>
           </div>
         </div>
 
@@ -940,36 +943,22 @@
       const parentFormId = urlParams.get('id');
 
       if (parentFormId) {
-        // PARENT FILL VIEW MODE ACTIVE!
-        isParentFormFilling = true;
-        document.getElementById('view-manager').classList.add('hidden');
-        document.getElementById('view-parent-fill').classList.remove('hidden');
-        
-        const toggleBtn = document.getElementById('manager-toggle-btn');
-        if (toggleBtn) toggleBtn.classList.add('hidden');
-        
-        // Hide top site header completely for pure parental view
-        const appHeader = document.getElementById('app-header');
-        if (appHeader) appHeader.classList.add('hidden');
-
-        await loadParentFormTemplate(parentFormId);
-
-        // Configure validation change listeners
-        const form = document.getElementById('parent-approval-form');
-        if (form) {
-          form.addEventListener('input', updateParentFormButtonState);
-          form.addEventListener('change', updateParentFormButtonState);
-        }
-        updateParentFormButtonState();
-      } else {
-        // MANAGER/DASHBOARD VIEW ACTIVE
-        isParentFormFilling = false;
-        document.getElementById('view-manager').classList.remove('hidden');
-        document.getElementById('view-parent-fill').classList.add('hidden');
-        updateHeaderAuthButtonVisuals();
-        
-        await loadAllDatabaseRecords();
+        // Redirect to isolated parent approval form page
+        const origin = window.location.origin;
+        const pathname = window.location.pathname;
+        const lastSlashIdx = pathname.lastIndexOf('/');
+        const directoryPath = lastSlashIdx !== -1 ? pathname.substring(0, lastSlashIdx + 1) : '/';
+        window.location.replace(`${origin}${directoryPath}approval_form.html?id=${parentFormId}`);
+        return;
       }
+
+      // MANAGER/DASHBOARD VIEW ACTIVE
+      isParentFormFilling = false;
+      document.getElementById('view-manager').classList.remove('hidden');
+      document.getElementById('view-parent-fill').classList.add('hidden');
+      updateHeaderAuthButtonVisuals();
+      
+      await loadAllDatabaseRecords();
 
       // Pre-initialize Canvas listeners & resizing
       initSignatureCanvasEngine();
@@ -1914,8 +1903,11 @@ ALTER TABLE public.parent_submissions ENABLE ROW LEVEL SECURITY;
     // ==========================================
     function copyParentFormLink(templateId) {
       // Form absolute deployment link URL
-      const currentURL = window.location.origin + window.location.pathname;
-      const shareLink = `${currentURL}?id=${templateId}`;
+      const origin = window.location.origin;
+      const pathname = window.location.pathname;
+      const lastSlashIdx = pathname.lastIndexOf('/');
+      const directoryPath = lastSlashIdx !== -1 ? pathname.substring(0, lastSlashIdx + 1) : '/';
+      const shareLink = `${origin}${directoryPath}approval_form.html?id=${templateId}`;
 
       navigator.clipboard.writeText(shareLink).then(() => {
         Swal.fire({
