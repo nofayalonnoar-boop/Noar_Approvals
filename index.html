@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>אישורי הורים והצהרות בריאות | ניהול</title>
+  <title>אישורי הורים והצהרות בריאות | מחלקת נוער</title>
   
   <!-- CDN Links -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -78,22 +78,7 @@
   <!-- ==========================================
       HEADER (Hidden in Parent Completion Print)
      ========================================== -->
-  <header id="app-header" class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs no-print">
-    <div class="mx-auto max-w-7xl px-4 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div class="bg-brand-600 text-white w-9 h-9 rounded-xl flex items-center justify-center shadow-md">
-          <i class="fa-solid fa-file-signature text-base"></i>
-        </div>
-        <div>
-          <h1 class="text-sm font-extrabold text-slate-900 tracking-tight leading-none">מערכת אישורי הורים</h1>
-        </div>
-      </div>
-      
-      <!-- Nav Button Links -->
-      <div class="flex items-center gap-2">
-      </div>
-    </div>
-  </header>
+
 
   <!-- DB Sync Status Banner (Hidden in print) -->
   <div id="db-status-banner" class="bg-amber-50 border-b border-amber-100 px-4 py-1.5 text-center text-[11px] font-bold text-amber-800 no-print hidden">
@@ -138,9 +123,8 @@
           <div class="border-b border-slate-100 p-4 bg-slate-50/50 flex items-center justify-between">
             <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
               <i class="fa-regular fa-folder text-brand-600"></i>
-              <span>טפסים קבועים שיצרת</span>
+              <span>פעילויות</span>
             </span>
-            <span id="templates-count-badge" class="bg-brand-50 text-brand-700 text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
           </div>
 
           <div id="templates-list-container" class="divide-y divide-slate-100 max-h-[60vh] overflow-y-auto">
@@ -1147,7 +1131,9 @@
       const countB = document.getElementById('templates-count-badge');
       if (!container) return;
 
-      countB.innerText = globalTemplates.length;
+      if (countB) {
+        countB.innerText = globalTemplates.length;
+      }
 
       if (globalTemplates.length === 0) {
         container.innerHTML = `
@@ -1168,39 +1154,34 @@
         html += `
           <div 
             onclick="setActiveTemplate('${t.id}')"
-            class="p-4 transition cursor-pointer flex flex-col gap-2.5 ${isSelected ? 'bg-brand-50 border-r-4 border-brand-600' : 'hover:bg-slate-50/50'}"
+            class="p-2.5 px-3.5 transition cursor-pointer flex items-center justify-between gap-3 ${isSelected ? 'bg-brand-50 border-r-4 border-brand-600' : 'hover:bg-slate-50/50'}"
           >
-            <div>
-              <h4 class="text-xs font-extrabold text-slate-900 group-hover:text-brand-600 leading-tight">${t.activity_name}</h4>
+            <div class="flex items-center gap-1.5 min-w-0 overflow-hidden">
+              <h4 class="text-xs font-extrabold text-slate-900 group-hover:text-brand-600 leading-tight truncate flex items-center gap-1.5">
+                <span class="truncate">${t.activity_name}</span>
+                <span class="text-black font-normal shrink-0">(${subCount} חתימות)</span>
+              </h4>
             </div>
 
-            <div class="flex items-center justify-between">
-              <span class="text-[9px] text-slate-400 flex items-center gap-1">
-                <i class="fa-solid fa-signature"></i>
-                <span>${subCount} הורים חתמו</span>
-              </span>
+            <!-- Action buttons for administrators -->
+            <div class="flex items-center gap-1 z-10 no-print shrink-0" onclick="event.stopPropagation()">
+              <button 
+                onclick="copyParentFormLink('${t.id}')"
+                class="bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 p-1.5 rounded-lg text-xs transition"
+                title="העתק קישור להורים"
+              >
+                <i class="fa-solid fa-link text-brand-600"></i>
+              </button>
               
-              <!-- Action buttons for administrators -->
-              <div class="flex items-center gap-1 z-10 no-print" onclick="event.stopPropagation()">
+              ${isManagerAuthenticated ? `
                 <button 
-                  onclick="copyParentFormLink('${t.id}')"
-                  class="bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 px-2 py-1 rounded-lg text-[10px] font-semibold transition flex items-center gap-0.5"
-                  title="העתק קישור להורים"
+                  onclick="openEditTemplateModal('${t.id}')"
+                  class="bg-white hover:bg-indigo-50 border border-slate-200 text-brand-700 p-1.5 rounded-lg text-xs transition"
+                  title="ערוך טופס"
                 >
-                  <i class="fa-solid fa-link text-brand-600"></i>
-                  <span>העתק קישור</span>
+                  <i class="fa-solid fa-pen"></i>
                 </button>
-                
-                ${isManagerAuthenticated ? `
-                  <button 
-                    onclick="openEditTemplateModal('${t.id}')"
-                    class="bg-white hover:bg-indigo-50 border border-slate-200 text-brand-700 px-2 py-1 rounded-lg text-[10px] font-bold transition"
-                    title="ערוך טופס"
-                  >
-                    <i class="fa-solid fa-pen"></i>
-                  </button>
-                ` : ''}
-              </div>
+              ` : ''}
             </div>
           </div>
         `;
